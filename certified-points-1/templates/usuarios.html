@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Usuários - CertiFicados{% endblock %}
+
+{% block content %}
+<h1>Usuários</h1>
+<table class="table">
+    <tr>
+        <th>Matrícula</th>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Ações</th>
+    </tr>
+    {% for usuario in usuarios %}
+    <tr>
+        <td>{{ usuario.matricula }}</td>
+        <td>{{ usuario.nome }}</td>
+        <td>{{ usuario.email }}</td>
+        <td>
+            <a href="{{ url_for('editar_usuario', id=usuario.id) }}" class="btn btn-warning">Editar</a>
+            <form action="{{ url_for('deletar_usuario', id=usuario.id) }}" method="POST" style="display:inline;" onsubmit="return confirmDeletion()">
+                <button type="submit" class="btn btn-danger">Deletar</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<script>
+function confirmDeletion() {
+    return confirm("Tem certeza que deseja deletar este Usuário?");
+}
+</script>
+{% endblock %}
